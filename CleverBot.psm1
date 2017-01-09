@@ -138,7 +138,7 @@ function Send-ToCleverBot{
 		
 		if($cleverBotAskBot.status -eq 'success'){
 			Write-Verbose "Sucessfully create session with nick: $($cleverBotCreateBot.nick)"
-			Write-Host "`[$($CleverBotNick)`]`: $($cleverBotAskBot.Response)"
+			Write-Output "`[$($CleverBotNick)`]`: $($cleverBotAskBot.Response)"
 		}
 	}
 	
