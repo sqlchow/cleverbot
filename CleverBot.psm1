@@ -5,16 +5,13 @@
 	 Filename:     	CleverBot.psm1
 	-------------------------------------------------------------------------
 	 Module Name: CleverBot
-	 Description: This CleverBot PowerShell module was built to give a CleverBot 
+	 Description: This CleverBot PowerShell module was built to give a  
         user the ability to interact with CleverBot API via Powershell.
 
-		Before importing this module, you must create your own CleverBot application
+		Before importing this module, you must create your own API keys
 	===========================================================================
 #>
 
-$cleverBotApiUser="s5uvhQliSvbXanBn"
-$cleverBotApiKey="gv3W0TmR6InovLRXBCs9bqX0Ap0aLzLW"
-$cleverBotNick="sqlchow"
 #seems like the nick is used like a session id?? Need to validate this though.
 
 Function New-CleverBot{
@@ -48,16 +45,15 @@ Function New-CleverBot{
 			   .SYNOPSIS
 				create cleverbot instance
 			#>
-				param([string] $CleverBotAPIUser, [string] $CleverBotAPIKey)            
-					Connect-ToCleverBot $CleverBotAPIUser $CleverBotAPIKey $this.nick
-				} -PassThru |
+					Connect-ToCleverBot $this.user $this.key $this.nick
+			} -PassThru |
 			Add-Member ScriptMethod ask {            
 			<#
 			   .SYNOPSIS
 				Query cleverbot istance
 			#>
 				param($message)            
-					Send-ToCleverBot $CleverBotAPIUser $CleverBotAPIKey $this.nick $message
+					Send-ToCleverBot $this.user $this.key $this.nick $message
 				} -PassThru 
 	}
 
@@ -142,13 +138,13 @@ function Send-ToCleverBot{
 		
 		if($cleverBotAskBot.status -eq 'success'){
 			Write-Verbose "Sucessfully create session with nick: $($cleverBotCreateBot.nick)"
-			Write-Host "`[$($CleverBotNick)`]: $($cleverBotAskBot.Response)"
-            $hashtable = @{}
+			Write-Host "`[$($CleverBotNick)`]`: $($cleverBotAskBot.Response)"
 		}
 	}
 	
 	End
 	{
+		$hashtable.Clear()
 	}
 }
 
