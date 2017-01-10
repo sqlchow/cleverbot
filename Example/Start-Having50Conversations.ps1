@@ -12,7 +12,7 @@
 Import-Module D:\Programming\PowerShell\CleverBot\CleverBot.psm1
 
 $starter = Get-Content D:\Programming\PowerShell\CleverBot\Example\SamplePhrases.txt | Get-Random -Count 1
-
+Write-Host "[Scrappie]: $starter"
 $cleverBotApiUser=<youruser>
 $cleverBotApiKey=<yourkey>
 
